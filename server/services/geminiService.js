@@ -12,7 +12,11 @@ const { GoogleGenAI } = require('@google/genai');
 const crypto = require('crypto');
 
 // ── Configuration ────────────────────────────────────────────────────
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+const configuredModel = String(process.env.GEMINI_MODEL || '').trim();
+const GEMINI_MODEL =
+  !configuredModel || configuredModel === 'gemini-2.0-flash'
+    ? 'gemini-3.8-flash'
+    : configuredModel;
 const configuredImageLimit = Number.parseInt(
   process.env.GEMINI_IMAGE_LIMIT_PER_AUDIT || '5',
   10
@@ -176,6 +180,28 @@ function getQuotaInfo(error) {
   };
 }
 
+function getAuthenticationError(error) {
+  let payload = error?.error || error;
+  if (typeof error?.message === 'string') {
+    try {
+      payload = JSON.parse(error.message)?.error || payload;
+    } catch {}
+  }
+
+  const serialized = JSON.stringify(payload || {});
+  if (
+    Number(payload?.code) !== 401 &&
+    payload?.status !== 'UNAUTHENTICATED' &&
+    !/ACCESS_TOKEN_TYPE_UNSUPPORTED|API key not valid/i.test(serialized)
+  ) {
+    return null;
+  }
+
+  return new Error(
+    'Gemini API authentication failed. Replace GEMINI_API_KEY in server/.env with a valid Google AI Studio API key, then restart the API server.'
+  );
+}
+
 function isRetryableGeminiError(error) {
   if (getQuotaInfo(error)) return false;
   const retryableStatuses = new Set([408, 429, 500, 502, 503, 504]);
@@ -215,6 +241,8 @@ async function retryGeminiRequest(request, options = {}) {
       await rateLimiter.acquire();
       return await request();
     } catch (error) {
+      const authenticationError = getAuthenticationError(error);
+      if (authenticationError) throw authenticationError;
       const quotaInfo = getQuotaInfo(error);
       if (quotaInfo) {
         quotaBlockedUntil = Date.now() + quotaInfo.retrySeconds * 1000;
