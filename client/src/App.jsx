@@ -9,6 +9,7 @@ import AltTextFixes from './components/AltTextFixes';
 import HeadingFixes from './components/HeadingFixes';
 import ReportDownloads from './components/ReportDownloads';
 import { FormLabelFixes, LinkTextFixes } from './components/ContextualFixes';
+import { apiFetch } from './api';
 
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -51,13 +52,11 @@ export default function App() {
     }
 
     try {
-      const res = await fetch('/api/audit', {
+      const { response: res, data } = await apiFetch('/api/audit', {
         method: 'POST',
         headers,
         body: JSON.stringify({ url, enabledRules }),
       });
-
-      const data = await res.json();
 
       if (!res.ok || !data.success) {
         throw new Error(data.error || 'Audit failed unexpectedly.');

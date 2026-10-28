@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiFetch } from '../api';
 
 export default function Settings() {
   const [settings, setSettings] = useState(null);
@@ -17,8 +18,7 @@ export default function Settings() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/settings');
-      const data = await res.json();
+      const { data } = await apiFetch('/api/settings');
       if (!data.success) throw new Error(data.error || 'Failed to load settings');
       setSettings(data.settings);
     } catch (err) {
@@ -34,12 +34,11 @@ export default function Settings() {
     setSaving(true);
     setSaveMessage(null);
     try {
-      const res = await fetch('/api/settings', {
+      const { data } = await apiFetch('/api/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ geminiApiKey: newKey.trim() }),
       });
-      const data = await res.json();
       if (!data.success) throw new Error(data.error);
       setSaveMessage({ type: 'success', text: 'API key updated successfully.' });
       setNewKey('');

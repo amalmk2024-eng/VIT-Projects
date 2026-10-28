@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiFetch } from '../api';
 
 const GRADE_COLORS = {
   A: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
@@ -21,8 +22,7 @@ export default function AuditHistory({ onSelectAudit }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/history');
-      const data = await res.json();
+      const { data } = await apiFetch('/api/history');
       if (!data.success) throw new Error(data.error || 'Failed to load history');
       setHistory(data.history);
     } catch (err) {
@@ -34,8 +34,7 @@ export default function AuditHistory({ onSelectAudit }) {
 
   async function clearHistory() {
     try {
-      const res = await fetch('/api/history', { method: 'DELETE' });
-      const data = await res.json();
+      const { data } = await apiFetch('/api/history', { method: 'DELETE' });
       if (!data.success) throw new Error(data.error);
       setHistory([]);
     } catch (err) {
