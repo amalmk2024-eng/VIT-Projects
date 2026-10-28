@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global Base Styles & Luxury Ethereal Palette ───────────────── */
+:root {
+  --bg-primary: #FAF9F5;
+  --bg-surface: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.98);
+  --border-subtle: rgba(24, 24, 27, 0.06);
+  --border-card: rgba(228, 222, 214, 0.8);
+  --border-glow: rgba(77, 106, 86, 0.25);
+  --accent-sage: #4D6A56;
+  --accent-gold: #BFA067;
+  --accent-rose: #A65668;
+  --text-primary: #18181B;
+  --text-secondary: #52525B;
+  --text-muted: #8A8F98;
+  --success: #3D5A45;
+  --danger: #B85C65;
+  --warning: #C28435;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ethereal, airy background ambient gradients */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle 800px at 15% 10%, rgba(207, 221, 209, 0.28) 0%, transparent 60%),
+    radial-gradient(circle 900px at 85% 15%, rgba(243, 233, 213, 0.25) 0%, transparent 60%),
+    radial-gradient(circle 800px at 50% 70%, rgba(240, 216, 220, 0.18) 0%, transparent 65%),
+    radial-gradient(circle 700px at 20% 90%, rgba(230, 236, 231, 0.22) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography Enhancements ────────────────────────────────────── */
+h1, h2, h3, .font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+/* ── Utility Layers ─────────────────────────────────────────────── */
+@layer components {
+  /* Ultra-elegant floating glass cards */
+  .glass-card {
+    @apply rounded-2xl border border-[#E8E3DA] bg-white/85 backdrop-blur-xl;
+    box-shadow:
+      0 20px 40px -15px rgba(24, 24, 27, 0.04),
+      0 2px 8px -2px rgba(24, 24, 27, 0.02),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 ease-out;
+  }
+
+  .glass-card-hover:hover {
+    @apply border-[#D8D2C6] bg-white/95;
+    box-shadow:
+      0 25px 50px -12px rgba(24, 24, 27, 0.08),
+      0 4px 12px -2px rgba(24, 24, 27, 0.03),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+  }
+
+  /* Grounding, luxury primary CTA button (deep obsidian / charcoal) */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl px-7 py-3.5 text-sm font-medium text-white transition-all duration-300 ease-out;
+    background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
+    box-shadow:
+      0 6px 20px -4px rgba(24, 24, 27, 0.25),
+      0 2px 6px -1px rgba(24, 24, 27, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #27272A 0%, #3F3F46 100%);
+    box-shadow:
+      0 10px 25px -4px rgba(24, 24, 27, 0.35),
+      0 4px 10px -1px rgba(24, 24, 27, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px -2px rgba(24, 24, 27, 0.25);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Brushed Sage CTA button */
+  .btn-sage {
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl px-6 py-3 text-sm font-medium text-white transition-all duration-300 ease-out;
+    background: linear-gradient(135deg, #4D6A56 0%, #3B5545 100%);
+    box-shadow:
+      0 6px 18px -4px rgba(61, 85, 69, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-sage:hover {
+    background: linear-gradient(135deg, #577861 0%, #43614F 100%);
+    box-shadow:
+      0 10px 24px -4px rgba(61, 85, 69, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Elegant Secondary button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-stone-200/90 bg-white/70 px-5 py-2.5 text-xs font-semibold text-charcoal-700 transition-all duration-200 hover:border-stone-300 hover:bg-white hover:text-charcoal-900;
+    box-shadow: 0 2px 8px -2px rgba(24, 24, 27, 0.04);
+  }
+
+  /* Editorial gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #18181B 20%, #4D6A56 80%, #A3844D 100%);
+  }
+
+  .gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #27272A 15%, #A3844D 75%, #BFA067 100%);
+  }
+
+  /* Sophisticated tab button */
+  .tab-button {
+    @apply relative rounded-xl px-4 py-2 text-xs font-medium transition-all duration-300;
+    color: var(--text-secondary);
+  }
+
+  .tab-button:hover {
+    color: var(--text-primary);
+    background: rgba(24, 24, 27, 0.04);
+  }
+
+  .tab-button.active {
+    color: #18181B;
+    background: #FFFFFF;
+    font-weight: 600;
+    box-shadow:
+      0 4px 12px -2px rgba(24, 24, 27, 0.08),
+      0 1px 3px rgba(24, 24, 27, 0.04);
+    border: 1px solid rgba(228, 222, 214, 0.85);
+  }
+
+  /* Copy button */
+  .copy-button {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-stone-200/90 bg-white/90 px-3 py-1.5 text-xs font-medium text-charcoal-600 shadow-sm transition-all duration-200 hover:border-stone-300 hover:bg-white hover:text-charcoal-900;
+  }
+
+  /* Code block */
+  .code-block {
+    @apply rounded-xl border border-stone-800/80 bg-[#161719] p-4 font-mono text-xs text-[#E3DFD7];
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Color swatch */
+  .color-swatch {
+    @apply inline-block h-8 w-8 rounded-lg border border-black/10;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Status Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold tracking-wide uppercase;
+  }
+
+  .badge-fail {
+    @apply badge;
+    background: rgba(184, 92, 101, 0.1);
+    color: #9E3F49;
+    border: 1px solid rgba(184, 92, 101, 0.25);
+  }
+
+  .badge-pass {
+    @apply badge;
+    background: rgba(61, 90, 69, 0.1);
+    color: #2F4E37;
+    border: 1px solid rgba(61, 90, 69, 0.25);
+  }
+
+  .badge-error {
+    @apply badge;
+    background: rgba(194, 132, 53, 0.1);
+    color: #8C591B;
+    border: 1px solid rgba(194, 132, 53, 0.25);
+  }
+}
+
+/* ── Scrollbar Styling ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(24, 24, 27, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 24, 27, 0.28);
+}
+
+/* ── Loading Skeleton Shimmer ───────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(24, 24, 27, 0.04) 0%,
+    rgba(24, 24, 27, 0.08) 50%,
+    rgba(24, 24, 27, 0.04) 100%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Toast / Copy Feedback ──────────────────────────────────────── */
+.copy-toast {
+  animation: fadeIn 0.2s ease-out, fadeOut 0.3s ease-in 1.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ── Spinner ────────────────────────────────────────────────────── */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(24, 24, 27, 0.15);
+  border-top-color: #18181B;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Grade Badge ────────────────────────────────────────────────── */
+.grade-ring {
+  position: relative;
+  width: 86px;
+  height: 86px;
+}
+
+.grade-ring svg {
+  transform: rotate(-90deg);
+}
+
+.grade-ring .grade-letter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Finish the light editorial theme on pages that still use legacy dark tokens. */
+.app-shell .text-white\/90 { color: #18181B; }
+.app-shell .text-white\/80 { color: #27272A; }
+.app-shell .text-white\/70 { color: #3F3F46; }
+.app-shell .text-white\/60 { color: #52525B; }
+.app-shell .text-white\/50,
+.app-shell .text-white\/40 { color: #71717A; }
+.app-shell .text-white\/35,
+.app-shell .text-white\/30,
+.app-shell .text-white\/20 { color: #8A8F98; }
+.app-shell .text-white\/15 { color: #D6D3D1; }
+
+.app-shell .border-white\/\[0\.03\],
+.app-shell .border-white\/\[0\.04\],
+.app-shell .border-white\/\[0\.06\],
+.app-shell .border-white\/\[0\.08\],
+.app-shell .border-white\/\[0\.1\],
+.app-shell .border-white\/\[0\.12\] { border-color: rgba(228, 222, 214, 0.8); }
+
+.app-shell .bg-white\/\[0\.01\],
+.app-shell .bg-white\/\[0\.02\],
+.app-shell .bg-white\/\[0\.03\],
+.app-shell .bg-white\/\[0\.04\],
+.app-shell .bg-white\/\[0\.05\],
+.app-shell .bg-white\/\[0\.06\] { background-color: rgba(255, 255, 255, 0.72); }
+
+.app-shell .hover\:bg-white\/\[0\.04\]:hover,
+.app-shell .hover\:bg-white\/\[0\.1\]:hover { background-color: rgba(255, 255, 255, 0.96); }
+
+.app-shell input[class*="bg-white/"],
+.app-shell textarea[class*="bg-white/"] {
+  border-color: rgba(228, 222, 214, 0.9);
+  background-color: rgba(255, 255, 255, 0.78);
+  color: #18181B;
+}
+
+.app-shell input[class*="bg-white/"]::placeholder,
+.app-shell textarea[class*="bg-white/"]::placeholder { color: #A1A1AA; }
+
+.app-shell input[class*="bg-white/"]:focus,
+.app-shell textarea[class*="bg-white/"]:focus {
+  border-color: #759A7A;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(117, 154, 122, 0.18);
+}
+
+.app-shell .hover\:text-white:hover { color: #18181B; }
+
+.app-shell .text-emerald-400 { color: #3D5A45; }
+.app-shell .text-cyan-400 { color: #2F6575; }
+.app-shell .text-amber-400 { color: #9E7432; }
+.app-shell .text-orange-400 { color: #B0592E; }
+.app-shell .text-purple-400 { color: #6D4C8D; }
+.app-shell .text-red-400 { color: #9E3F49; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

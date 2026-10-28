@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility Audit Fixture</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #242c2a;
+        background: #fff;
+      }
+
+      body {
+        max-width: 760px;
+        margin: 48px auto;
+        padding: 0 24px;
+        line-height: 1.6;
+      }
+
+      .low-contrast {
+        color: #aaa;
+      }
+
+      label,
+      input {
+        display: block;
+        margin-top: 8px;
+      }
+
+      input {
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Community garden updates</h1>
+      <p class="low-contrast">This muted paragraph is intentionally difficult to read.</p>
+
+      <section>
+        <h3>Get the monthly newsletter</h3>
+        <p>Enter your email address to receive garden news.</p>
+        <form>
+          <input type="email" name="email" placeholder="Email address" />
+          <label for="topic">Topics of interest</label>
+          <input id="topic" name="topic" type="text" />
+          <input type="hidden" name="form-token" value="sample" />
+          <input type="submit" value="Subscribe" />
+        </form>
+      </section>
+
+      <section>
+        <h2>Upcoming events</h2>
+        <p>Read the schedule for details about volunteer mornings.</p>
+        <a href="#events">Click here</a>
+        <a id="events" href="#events">View all garden events</a>
+      </section>
+    </main>
+  </body>
+</html>
