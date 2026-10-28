@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch-path=routes --watch-path=services --watch-path=auditors --watch-path=index.js index.js",
-    "test": "node --test"
+    "test": "node --test",
+    "postinstall": "puppeteer browsers install chrome"
   },
   "dependencies": {
     "@google/genai": "^1.0.0",
